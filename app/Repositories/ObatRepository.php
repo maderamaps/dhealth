@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use Illuminate\Validation\ValidationException;
 use App\ObatAlkes;
+use DB;
 
 
 class ObatRepository 
@@ -13,30 +14,32 @@ class ObatRepository
         return ObatAlkes::get();
     }
 
-    public function stokUpdate(array $obat_racikan, array $obat_non_racikan){
+    public function stokUpdate(array $semua_obat){
         //obat non racikan
-        if(isset($obat_non_racikan)){
-            for($i=0; $i<count($obat_non_racikan);$i++){
-                $obat = ObatAlkes::find($obat_non_racikan[$i]['ro_obatalkes_id']);
-                if($obat->stok<$obat_non_racikan[$i]['ro_qyt']){
-                    return 
-                }
-                $obat->stok = (int)$obat->stok - (int)$obat_non_racikan[$i]['ro_qyt'];
-                $obat->save();
+        $message=[];
+        $check=true;
+        for($i=0; $i<count($semua_obat);$i++){
+            $obat = ObatAlkes::find($semua_obat[$i][0]);
+            $stok = $obat->stok - $semua_obat[$i][1];
+            if($stok < 0){
+                array_push($message, $obat->obatalkes_nama.' stok tidak cukup');
+                $check=false;
+                DB::rollback();
+            }
+            
+        }
+
+        if($check==true){
+            for($i=0; $i<count($semua_obat);$i++){
+                $obat = ObatAlkes::find($semua_obat[$i][0]);
+                $stok = $obat->stok - $semua_obat[$i][1];
+                DB::update('update obatalkes_m set stok = '.$stok.' where obatalkes_id = '.$semua_obat[$i][0].'' );
             }
         }
 
-        //obat racikan
-        if(isset($obat_racikan)){
-            for($i=0; $i<count($obat_racikan);$i++){
-                for($j=0; $j<count($obat_racikan[$i]['ro_obatalkes_id']);$j++){
-                    $obat = ObatAlkes::find($obat_racikan[$i]['ro_obatalkes_id'][$j]);
-                    $obat->stok = (int)$obat->stok - (int)$obat_racikan[$i]['ro_qyt'][$j];
-                    $obat->save();
+    
 
-                }
-                
-            }
-        }
+
+        return $message;
     }
 }

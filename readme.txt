@@ -1,0 +1,6 @@
+-Buat Database dengan nama dhealth
+-import sql
+-buka http://localhost/dhealth/public di website
+-registrasi 
+-buat resep
+-download pdf

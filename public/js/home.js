@@ -34,7 +34,29 @@ $(document).ready(function() {
         }
     });
 
-    
+    // $(document).on("change", ".input-qyt", function(){
+    //     index = $(this).attr('data-index')
+    //     real_stok = parseInt($('#obat'+index).find(':selected').data('realstok'))
+    //     stok = parseInt($('#obat'+index).attr('data-stok'))
+    //     input = parseInt($(this).val())
+    //     console.log(index+stok+input)
+    //     if(input > stok){
+    //         alert('Stok Tidak Cukup, Sisa stok ada '+real_stok)
+    //         $(this).val(real_stok)
+    //     }else{
+    //         total = stok - input
+    //         $('#obat'+index).attr('data-stok',total)
+
+    //         nama_obat = $('#obat'+index).find(':selected').data('name')
+    //         $('#obat'+index).find(':selected').text(nama_obat+' (stok: '+total+')')
+    //         console.log($('#obat'+index).find(':selected').text())
+    //         setTimeout(function(){ 
+    //             $('select.selectpicker').select2();
+    //         }, 200);
+    //     }
+
+
+    // });
 
 });
 
@@ -91,13 +113,6 @@ window.delete_field_obat = function (){
 
 $( "#form_resep" ).submit(function( event ) {
     
-    Swal.fire({
-        icon: 'success',
-        width: '200px',
-        showConfirmButton: false,
-        timer: 1500
-      })
-
     $('#btn-submit').show();
 
     if($('#type').val() == 'Non Racikan'){
@@ -109,29 +124,57 @@ $( "#form_resep" ).submit(function( event ) {
         non_racikan[non_racikan.length] = {obat : obat, obat_id : obat_id, qyt_obat : qyt_obat, signa:signa, signa_id : signa_id};
         console.log(non_racikan) 
         set_table_non_racikan();
+        Swal.fire({
+            icon: 'success',
+            width: '200px',
+            showConfirmButton: false,
+            timer: 1500
+          })
 
     }else{
         obat = [];
         obat_id = [];
+        check = [];
         qyt = [];
         signa = $('#signa').val()
         signa_id = $('#signa').find(':selected').data('id')
         nama = $('#name').val()
         length = racikan.length;
-        racikan[length] ={signa: signa, nama: nama, signa_id: signa_id}
+
         for(i=1;i<=$('#obat_index').val();i++){
-            obat.push($('#obat'+i).val());
-            racikan[length].obat=obat;
-
-            obat_id.push($('#obat'+i).find(':selected').data('id'));
-            racikan[length].obat_id=obat_id;
-
-            qyt.push($('#qyt_obat'+i).val());
-            racikan[length].qyt_obat=qyt;
+            check.push($('#obat'+i).find(':selected').data('id'))
         }
 
-        console.log(racikan) 
-        set_table_racikan()
+
+        
+        if(hasDuplicates(check)==false){
+            racikan[length] ={signa: signa, nama: nama, signa_id: signa_id}
+
+            for(i=1;i<=$('#obat_index').val();i++){
+                obat.push($('#obat'+i).val());
+                racikan[length].obat=obat;
+
+                obat_id.push($('#obat'+i).find(':selected').data('id'));
+                racikan[length].obat_id=obat_id;
+
+                qyt.push($('#qyt_obat'+i).val());
+                racikan[length].qyt_obat=qyt;
+            }
+
+        
+                console.log(racikan) 
+                set_table_racikan()
+
+                Swal.fire({
+                    icon: 'success',
+                    width: '200px',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            
+        }else{
+            alert('Terdapat duplikat obat dalam satu racikan');
+        }
 
     }
 
@@ -233,14 +276,51 @@ $(document).on("click", "#btn-submit", function(){
             _token: CSRF_TOKEN
         },
         success: function(dataResult){
-            Swal.fire({
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-                width: '100px',
-            })
+            var unique = dataResult[0].filter(onlyUnique);
+            console.log(unique.length);
+            if(unique.length !== 0){
+                Swal.fire({
+                    icon: 'error',
+                    title: "'"+unique+"'",
+                    showConfirmButton: false,
+                    timer: 5000,
+              
+
+                })
+            }else{
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                      confirmButton: 'btn btn-success',
+                    },
+                    buttonsStyling: false
+                  })
+                  
+                  swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'success',
+                    confirmButtonText: 'Resep File',
+            
+                    reverseButtons: true
+                  }).then((result) => {
+                    window.open('cetak_resep/'+dataResult[1], '_blank');
+                    location.reload();
+                  })
+
+
+            }
            
+           
+            
+
         }
     })
 });
 
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
+function hasDuplicates(array) {
+    return (new Set(array)).size !== array.length;
+}

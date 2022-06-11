@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/submit_resep', 'HomeController@submit_resep')->name('submit_resep');
+Route::get('/cetak_resep/{id}', 'HomeController@cetak_resep')->name('cetak_resep');

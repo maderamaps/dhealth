@@ -31,7 +31,7 @@
                                         <select class="form-control selectpicker select-obat" data-stok="" data-index="1" id="obat1" nama="obat[]" required>
                                             <option value="">-- Pilih Obat --</option>
                                                 @foreach ($obat as $row)
-                                                    <option value="{{$row->obatalkes_nama}}" data-id={{$row->obatalkes_id}} data-stok="{{$row->stok}}">{{$row->obatalkes_nama}} (stok: {{$row->stok}})</option>
+                                                    <option value="{{$row->obatalkes_nama}}" data-id={{$row->obatalkes_id}} data-stok="{{$row->stok}}">{{$row->obatalkes_nama}} (stok: {{(int)$row->stok}})</option>
                                                 @endforeach
                                         </select>
                                     </div>
@@ -39,7 +39,7 @@
                                 <div class="col-md-1" style="padding: 0px">
                                     <div class="form-group" >
                                         <label for="qyt_obat1">qyt</label>
-                                        <input class="form-control selectpicker input-qyt" type="number" data-index="1" id="qyt_obat1" style="height: 28px" required>
+                                        <input class="form-control selectpicker input-qyt" type="number" data-index="1" id="qyt_obat1" style="height: 28px" min="1" required>
                                     </div>
                                 </div>
                             </div>

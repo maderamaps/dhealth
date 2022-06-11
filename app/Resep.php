@@ -11,7 +11,6 @@ class Resep extends Model
 	public $timestamps = false;
 	public $incrementing = false;
     protected $fillable = [ 
-                            'rsp_signa_id',
-                            'rsp_nama',
+                            'rsp_date',
                                     ];
 }
