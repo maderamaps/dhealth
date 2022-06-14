@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2022 at 01:16 PM
+-- Generation Time: Jun 14, 2022 at 01:47 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.20
 
@@ -49,17 +49,6 @@ CREATE TABLE `log_activity` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `log_activity`
---
-
-INSERT INTO `log_activity` (`log_id`, `log`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'Cetak Resep', 'made rama', '2022-06-11 03:10:21', '2022-06-11 03:10:21'),
-(2, 'Cetak Resep', 'made rama', '2022-06-11 03:10:22', '2022-06-11 03:10:22'),
-(3, 'Submit Resep', 'made rama', '2022-06-11 03:11:09', '2022-06-11 03:11:09'),
-(4, 'Cetak Resep', 'made rama', '2022-06-11 03:11:11', '2022-06-11 03:11:11'),
-(5, 'Cetak Resep', 'made rama', '2022-06-11 03:11:11', '2022-06-11 03:11:11');
 
 -- --------------------------------------------------------
 
@@ -110,7 +99,7 @@ CREATE TABLE `obatalkes_m` (
 --
 
 INSERT INTO `obatalkes_m` (`obatalkes_id`, `obatalkes_kode`, `obatalkes_nama`, `stok`, `additional_data`, `created_date`, `created_by`, `modified_count`, `last_modified_date`, `last_modified_by`, `is_deleted`, `is_active`, `deleted_date`, `deleted_by`) VALUES
-(1, 'ALK00000614', 'KASSA NON-XRAY 10 CM X 10 CM', '16.00', NULL, '2021-11-04 11:54:04', NULL, NULL, NULL, NULL, 0, 1, NULL, NULL),
+(1, 'ALK00000614', 'KASSA NON-XRAY 10 CM X 10 CM', '25.00', NULL, '2021-11-04 11:54:04', NULL, NULL, NULL, NULL, 0, 1, NULL, NULL),
 (2, 'ALK00000776', 'POLYSORB 1 CL905', '1410.00', NULL, '2021-11-04 11:54:04', NULL, NULL, NULL, NULL, 0, 1, NULL, NULL),
 (3, 'ALK00000741', 'VICRYL PLUS 2-0 VCP317 TAPER', '1296.00', NULL, '2021-11-04 11:54:04', NULL, NULL, NULL, NULL, 0, 1, NULL, NULL),
 (4, 'ALK00000095', 'CADD EXTENSION SET 76 CM/ 30 IN (21-7045-24)', '656.00', NULL, '2021-11-04 11:54:04', NULL, NULL, NULL, NULL, 0, 1, NULL, NULL),
@@ -2640,32 +2629,6 @@ CREATE TABLE `resep` (
   `rsp_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `resep`
---
-
-INSERT INTO `resep` (`rsp_id`, `rsp_date`) VALUES
-(6, '2022-06-10 19:52:03'),
-(7, '2022-06-10 19:54:46'),
-(8, '2022-06-10 19:55:53'),
-(9, '2022-06-10 19:56:21'),
-(10, '2022-06-10 19:58:02'),
-(11, '2022-06-10 19:58:57'),
-(12, '2022-06-10 19:59:23'),
-(14, '2022-06-10 20:46:12'),
-(16, '2022-06-11 04:57:57'),
-(17, '2022-06-11 04:59:10'),
-(18, '2022-06-11 05:01:39'),
-(19, '2022-06-11 06:19:07'),
-(20, '2022-06-11 06:21:00'),
-(21, '2022-06-11 06:26:36'),
-(22, '2022-06-11 06:26:56'),
-(23, '2022-06-11 06:27:24'),
-(24, '2022-06-11 06:28:43'),
-(25, '2022-06-11 06:44:45'),
-(26, '2022-06-11 09:37:49'),
-(27, '2022-06-11 10:11:09');
-
 -- --------------------------------------------------------
 
 --
@@ -2681,63 +2644,6 @@ CREATE TABLE `resep_obat` (
   `ro_name` varchar(50) DEFAULT NULL,
   `ro_grup` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `resep_obat`
---
-
-INSERT INTO `resep_obat` (`ro_id`, `ro_rsp_id`, `ro_obatalkes_id`, `ro_qyt`, `ro_signa_id`, `ro_name`, `ro_grup`) VALUES
-(16, 6, 3, 7, 2, NULL, NULL),
-(17, 6, 1, 7, 2, '', 0),
-(18, 7, 2, 50, 1, 'Demam', 0),
-(19, 7, 1, 7, 1, 'Demam', 0),
-(20, 7, 5, 2, 1, 'batuk', 1),
-(21, 7, 3, 7, 1, 'batuk', 1),
-(22, 8, 2, 50, 1, 'Demam', 0),
-(23, 8, 1, 7, 1, 'Demam', 0),
-(24, 8, 5, 2, 1, 'batuk', 1),
-(25, 8, 3, 7, 1, 'batuk', 1),
-(26, 9, 2, 50, 1, 'Demam', 0),
-(27, 9, 1, 7, 1, 'Demam', 0),
-(28, 9, 5, 2, 1, 'batuk', 1),
-(29, 9, 3, 7, 1, 'batuk', 1),
-(30, 10, 2, 50, 1, 'Demam', 0),
-(31, 10, 1, 7, 1, 'Demam', 0),
-(32, 10, 5, 2, 1, 'batuk', 1),
-(33, 10, 3, 7, 1, 'batuk', 1),
-(34, 11, 4, 1, 1, NULL, NULL),
-(35, 12, 7, 2, 1, NULL, NULL),
-(38, 14, 9, 2, 1, NULL, NULL),
-(48, 16, 1, 10, 2, '', 0),
-(49, 16, 2, 2, 2, '', 0),
-(50, 16, 3, 2, 2, '', 0),
-(51, 16, 1, 12, 2, '', 1),
-(52, 16, 2, 2, 2, '', 1),
-(53, 16, 1, 2, 2, '', 2),
-(54, 16, 2, 2, 2, '', 2),
-(55, 17, 3, 2, 2, '', 0),
-(56, 17, 2, 2, 2, '', 0),
-(57, 18, 2, 1, 1, NULL, NULL),
-(58, 19, 1, 1, 1, NULL, NULL),
-(59, 20, 2, 2, 1, NULL, NULL),
-(60, 21, 2, 2, 2, NULL, NULL),
-(61, 22, 3, 2, 2, NULL, NULL),
-(62, 23, 2, 2, 1, NULL, NULL),
-(63, 24, 3, 2, 1, NULL, NULL),
-(64, 25, 2, 2, 1, NULL, NULL),
-(65, 25, 4, 2, 1, NULL, NULL),
-(66, 25, 4, 2, 1, 'Demam', 0),
-(67, 25, 3, 1, 1, 'Demam', 0),
-(68, 25, 11, 2, 1, 'Obat Batuk', 1),
-(69, 25, 3, 1, 1, 'Obat Batuk', 1),
-(70, 25, 27, 2, 1, 'Obat Batuk', 1),
-(71, 26, 1, 2, 1, 'Demam', 0),
-(72, 26, 2, 3, 1, 'Demam', 0),
-(73, 26, 3, 1, 1, 'Demam', 0),
-(74, 26, 22, 1, 1, 'Obat Batuk', 1),
-(75, 26, 7, 4, 1, 'Obat Batuk', 1),
-(76, 26, 13, 2, 1, 'Obat Batuk', 1),
-(77, 27, 1, 2, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3866,7 +3772,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `log_activity`
 --
 ALTER TABLE `log_activity`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -3884,13 +3790,13 @@ ALTER TABLE `obatalkes_m`
 -- AUTO_INCREMENT for table `resep`
 --
 ALTER TABLE `resep`
-  MODIFY `rsp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `rsp_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `resep_obat`
 --
 ALTER TABLE `resep_obat`
-  MODIFY `ro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `ro_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `signa_m`
