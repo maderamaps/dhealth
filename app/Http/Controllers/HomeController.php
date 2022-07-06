@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         $this->ObatRepository = new ObatRepository();
         $this->SignaRepository = new SignaRepository();
-        $this->ResepRepository = new ResepRepository();
+        $this->ResepRepository = new ResepRepository();sss
     }
 
     /**
